@@ -4,11 +4,11 @@ import './App.css'
 function App() {
 
   const [coinX, setCoinX] = useState("")
+  const [displayCoinX, setDisplayCoinX] = useState("")
   const [coinY, setCoinY] = useState("")
+  const [displayCoinY, setDisplayCoinY] = useState("")
   const [coinXPrice, setCoinXPrice] = useState(null)
   const [coinYPrice, setCoinYPrice] = useState(null)
-  // const [coinXAmount, setCoinXAmount] = useState(1)
-  // const [coinYAmount, setCoinYAmount] = useState(0)
   const [amounts, setAmounts] = useState({x: 1, y: 0})
 
   const handleChangeX = (event) => {
@@ -20,14 +20,10 @@ function App() {
   }
 
   const handleChangeXAmount = (event) => {
-    // setCoinXAmount(event.target.value)
-    // setCoinYAmount(prev => (event.target.value)*coinXAmount/coinYPrice)
     setAmounts({x: event.target.value, y: (event.target.value)*coinXPrice/coinYPrice})
   }
 
   const handleChangeYAmount = (event) => {
-    // setCoinYAmount(event.target.value)
-    // setCoinXAmount((event.target.value)*coinYAmount/coinXPrice)
     setAmounts({x: (event.target.value)*coinYPrice/coinXPrice, y: event.target.value})
   }
 
@@ -45,6 +41,8 @@ function App() {
         )
         .then((response) => response.json())
         .then((response) => {
+          setDisplayCoinX(coinX)
+          setDisplayCoinY(coinY)
           setCoinXPrice(response[coinX]["usd"])
           setCoinYPrice(response[coinY]["usd"])
           setAmounts({x: 1, y: response[coinX]["usd"]/response[coinY]["usd"]})
@@ -63,7 +61,7 @@ function App() {
       <p>I want <input type="text" value={coinX} onChange={handleChangeX}/> priced in <input type="text" value={coinY} onChange={handleChangeY}/></p>
       <button onClick={handleClick}>Go!</button>
       {coinXPrice && coinYPrice && 
-      <h3><input type='text' value={amounts.x} onChange={handleChangeXAmount}/>{`${coinX} is equal to `}<input type='text' value={amounts.y} onChange={handleChangeYAmount}/>{` ${coinY}`}</h3>
+      <h3><input type='text' value={amounts.x} onChange={handleChangeXAmount}/>{`${displayCoinX} is equal to `}<input type='text' value={amounts.y} onChange={handleChangeYAmount}/>{` ${displayCoinY}`}</h3>
       }
     </>
   )
