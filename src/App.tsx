@@ -58,8 +58,10 @@ function App() {
   return (
     <>
       <h1>X Priced in Y</h1>
-      <p>I want <input type="text" value={coinX} onChange={handleChangeX}/> priced in <input type="text" value={coinY} onChange={handleChangeY}/></p>
-      <button onClick={handleClick}>Go!</button>
+      <div className="flex">
+        <p>I want <input type="text" value={coinX} onChange={handleChangeX}/> priced in <input type="text" value={coinY} onChange={handleChangeY}/></p>
+        <button onClick={handleClick}>Go!</button>
+      </div>
       {coinXPrice && coinYPrice && 
       <h3><input type='text' value={amounts.x} onChange={handleChangeXAmount}/>{`${displayCoinX} is equal to `}<input type='text' value={amounts.y} onChange={handleChangeYAmount}/>{` ${displayCoinY}`}</h3>
       }
